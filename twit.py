@@ -16,6 +16,15 @@ try:
 
     # it's about time to create a TwitterSearch object with our secret tokens
     # Made a separate file called keys.py (not included) that I store the keys for my twitter app
+    #
+    #     keys.py file format:
+    #
+    #     consumer_key = 'XXXXXXXXXXXXXXXXXXXX'
+    #     consumer_secret = 'XXXXXXXXXXXXXXXXXXXX'
+    #     access_token = 'XXXXXXX-XXXXXXXXXXXXXXXXXXXX'
+    #     access_token_secret = 'XXXXXXXXXXXXXXXXXXXX'
+
+
     ts = TwitterSearch(
         consumer_key = consumer_key,
         consumer_secret = consumer_secret,
