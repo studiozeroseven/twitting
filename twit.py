@@ -5,7 +5,7 @@ from keys import *
 print('What do you want to search for?')
 search = input()
 
-f = open(search + '.txt',"w+")
+f = open('txt/' + search + '.txt',"w+")
 
 
 try:
@@ -35,6 +35,7 @@ try:
 
      # this is where the fun actually starts :)
     for tweet in ts.search_tweets_iterable(tso):
+        f.write('@%s' % ( tweet['user']['screen_name'] + "\n"))
         print( '@%s' % ( tweet['user']['screen_name'] ) )
 
 except TwitterSearchException as e: # take care of all those ugly errors if there are some
