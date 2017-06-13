@@ -1,12 +1,11 @@
 from TwitterSearch import *
-
+from keys import *
 
 
 print('What do you want to search for?')
 search = input()
 
 f = open(search + '.txt',"w+")
-
 
 
 try:
@@ -16,11 +15,12 @@ try:
     tso.set_include_entities(False) # and don't give us all those entity information
 
     # it's about time to create a TwitterSearch object with our secret tokens
+    # Made a separate file called keys.py (not included) that I store the keys for my twitter app
     ts = TwitterSearch(
-        consumer_key = 'xxxxxxxxxx',
-        consumer_secret = 'xxxxxxxxxx',
-        access_token = 'xxxxxxxxxx-xxxxxxxxxx',
-        access_token_secret = 'xxxxxxxxxx'
+        consumer_key = consumer_key,
+        consumer_secret = consumer_secret,
+        access_token = access_token,
+        access_token_secret = access_token_secret
      )
 
 
