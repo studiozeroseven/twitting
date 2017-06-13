@@ -3,7 +3,7 @@ from keys import *
 
 
 print('What do you want to search for?')
-search = input()
+search = "teppen" #input()
 
 f = open('txt/' + search + '.txt', "r+")
 
@@ -36,22 +36,18 @@ try:
      # this is where the fun actually starts :)
     for tweet in ts.search_tweets_iterable(tso):
         username = tweet['user']['screen_name']
-
+        f.write('@%s' % (username + '\n'))
         # print(username)
 
-        with open("txt/" + search + '.txt') as file:
-            for line in f:
-                print(line)
-                atuser = username
-                if atuser in line:
-                    print('Exists: ' + username)
-                else:
-                    f.write(
-                        '@%s' % (username + '\n'))  # Write each of the twitter @username to a line and then next line
-                    print('Added: ' + username)  # This line is just to see the output in the console for testing
+        # with open("txt/" + search + '.txt') as file:
+        #     for line in file:
+        #         print(line)
+                # if username in line:
+                #     print('Exists: ' + username)
+                # else:
+                #     f.write('@%s' % (username + '\n'))  # Write each of the twitter @username to a line and then next line
+                #     print('Added: ' + username)  # This line is just to see the output in the console for testing
 
-
-        # print(lines)
 
 
 
