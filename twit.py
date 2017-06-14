@@ -3,10 +3,15 @@ from keys import *
 
 
 print('What do you want to search for?')
-search = "teppen" #input()
+search = input()
+fileresults = 'txt/' + search + '-results.txt'
+f = open(fileresults, "w+")
 
-f = open('txt/' + search + '.txt', "r+")
-
+def name_checker():
+    f = open(fileresults,'r')
+    for line in iter(f):
+        print(line)
+    f.close()
 
 try:
     tso = TwitterSearchOrder() # create a TwitterSearchOrder object
@@ -38,7 +43,7 @@ try:
         username = tweet['user']['screen_name']
         f.write('@%s' % (username + '\n'))
         # print(username)
-
+        name_checker()
         # with open("txt/" + search + '.txt') as file:
         #     for line in file:
         #         print(line)
@@ -47,9 +52,6 @@ try:
                 # else:
                 #     f.write('@%s' % (username + '\n'))  # Write each of the twitter @username to a line and then next line
                 #     print('Added: ' + username)  # This line is just to see the output in the console for testing
-
-
-
 
 
 
