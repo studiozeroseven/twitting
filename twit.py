@@ -8,10 +8,15 @@ fileresults = 'txt/' + search + '-results.txt'
 f = open(fileresults, "w+")
 
 def name_checker():
-    f = open(fileresults,'r')
-    for line in iter(f):
-        print(line)
-    f.close()
+    with open(fileresults, 'r') as file1:
+        with open('txt/' + search + '.txt', 'r') as file2:
+            same = set(file1).intersection(file2)
+            print(same)
+    same.discard('\n')
+
+    with open('txt/' + search + '-output.txt', 'w') as file_out:
+        for line in same:
+            file_out.write(line)
 
 try:
     tso = TwitterSearchOrder() # create a TwitterSearchOrder object
