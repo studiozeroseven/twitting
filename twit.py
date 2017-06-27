@@ -5,11 +5,13 @@ from keys import *
 print('What do you want to search for?')
 search = input()
 fileresults = 'txt/' + search + '-results.txt'
-f = open(fileresults, "w+")
+results = 'txt/' + search + '.txt'
+r = open(results, "a+")
+# f = open(fileresults, "w+")
 
 def name_checker():
     f = open(fileresults,'r')
-    for line in iter(f):
+    for line in f:
         print(line)
     f.close()
 
@@ -41,17 +43,26 @@ try:
      # this is where the fun actually starts :)
     for tweet in ts.search_tweets_iterable(tso):
         username = tweet['user']['screen_name']
-        f.write('@%s' % (username + '\n'))
+
+        # if username == 'IDS07':
+        #     print(username + " - Ian is in the list")
+        # else:
+        #     print( username + " - Not in list")
+
         # print(username)
-        name_checker()
-        # with open("txt/" + search + '.txt') as file:
-        #     for line in file:
-        #         print(line)
-                # if username in line:
-                #     print('Exists: ' + username)
-                # else:
-                #     f.write('@%s' % (username + '\n'))  # Write each of the twitter @username to a line and then next line
-                #     print('Added: ' + username)  # This line is just to see the output in the console for testing
+
+        # f.write('@%s' % (username + '\n'))
+        # print(username)
+        # name_checker()
+        with open("txt/" + search + '-results.txt') as file:
+            for line in file:
+                # print(line)
+                if username in line:
+                    print('Exists: ' + username)
+                else:
+                    r.write('@%s' % (username + '\n'))  # Write each of the twitter @username to a line and then next line
+
+                    print('Added: ' + username)  # This line is just to see the output in the console for testing
 
 
 
