@@ -1,19 +1,18 @@
+import os
 from TwitterSearch import *
 from keys import *
 
 
+
 print('What do you want to search for?')
 search = input()
-fileresults = 'txt/' + search + '-results.txt'
-results = 'txt/' + search + '.txt'
-r = open(results, "a+")
-# f = open(fileresults, "w+")
+file_results = 'txt/' + search + '-results.txt'
+search_results = 'txt/' + search + '.txt'
+r = open(search_results, "a+")
+f = open(file_results, "w+")
 
-def name_checker():
-    f = open(fileresults,'r')
-    for line in f:
-        print(line)
-    f.close()
+has_user = ''
+
 
 try:
     tso = TwitterSearchOrder() # create a TwitterSearchOrder object
@@ -44,27 +43,39 @@ try:
     for tweet in ts.search_tweets_iterable(tso):
         username = tweet['user']['screen_name']
 
-        # if username == 'IDS07':
-        #     print(username + " - Ian is in the list")
-        # else:
-        #     print( username + " - Not in list")
+        file_size = os.stat('txt/teppen-results.txt').st_size
+        print(file_size)
 
+        if file_size <= 0:
+            f.write('@%s' % (username + '\n'))
+            print('HERE')
+        else:
+            with open("txt/" + search + '-results.txt') as rfile:
+                for line in rfile:
+                    if username in line:
+                        print("-----")
+                    else:
+                        f.write('@%s' % (username + '\n'))
+                        print('Added New Username: ' + username)
         # print(username)
-
-        # f.write('@%s' % (username + '\n'))
-        # print(username)
-        # name_checker()
-        with open("txt/" + search + '-results.txt') as file:
-            for line in file:
-                # print(line)
-                if username in line:
-                    print('Exists: ' + username)
-                else:
-                    r.write('@%s' % (username + '\n'))  # Write each of the twitter @username to a line and then next line
-
-                    print('Added: ' + username)  # This line is just to see the output in the console for testing
-
 
 
 except TwitterSearchException as e:                                 # take care of all those ugly errors if there are some
     print(e)
+
+
+# class RunCompare():
+#
+#     def __init__(self):
+#         with open("txt/" + search + '-results.txt') as file:
+#             for line in file:
+#                 with open("txt/" + search + '.txt') as search_file:
+#                     for other_line in search_file:
+#                         if other_line in line:
+#                             print(
+#                                 'Added: ' + username)  # This line is just to see the output in the console for testing                print('Exists: ' + username)
+#                         else:
+#                             r.write('@%s' % (
+#                             username + '\n'))  # Write each of the twitter @username to a line and then next line
+#
+# RunCompare()
