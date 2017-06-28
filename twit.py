@@ -41,13 +41,20 @@ try:
 
         counter = 0
 
-        for line in f.readlines():
-            if line is username:
+        # with open(file_results) as file:
+        #     for line in file:
+        #         if line is username:
+        #             counter += 1
+        #             print("IT EXISTS")
+
+        for usern in username_list:
+            if usern is username:
                 counter += 1
                 print("IT EXISTS")
 
         if counter == 0:
             username_list.append(username)
+            # f.write(str(username_list))
 
 
 
