@@ -3,12 +3,13 @@ from TwitterSearch import *
 from keys import *
 
 # print('What do you want to search for?')
+#TODO: Change this back to what it was, I forgot how to do it
 search = "teppen"
 
 file_results = 'txt/' + search + '-results.txt'
-f = open(file_results, "w+")
+f = open(file_results, 'w')
 
-username_list = []
+users = []
 
 try:
     tso = TwitterSearchOrder() # create a TwitterSearchOrder object
@@ -19,48 +20,42 @@ try:
     # it's about time to create a TwitterSearch object with our secret tokens
     # Made a separate file called keys.py (not included) that I store the keys for my twitter app
     #
-    # keys.py file format:
+    #     keys.py file format:
     #
-    # consumer_key = 'XXXXXXXXXXXXXXXXXXXX'
-    # consumer_secret = 'XXXXXXXXXXXXXXXXXXXX'
-    # access_token = 'XXXXXXX-XXXXXXXXXXXXXXXXXXXX'
-    # access_token_secret = 'XXXXXXXXXXXXXXXXXXXX'
+    #     consumer_key = 'XXXXXXXXXXXXXXXXXXXX'
+    #     consumer_secret = 'XXXXXXXXXXXXXXXXXXXX'
+    #     access_token = 'XXXXXXX-XXXXXXXXXXXXXXXXXXXX'
+    #     access_token_secret = 'XXXXXXXXXXXXXXXXXXXX'
 
+    #Setting up API
     ts = TwitterSearch(
         consumer_key = consumer_key,
         consumer_secret = consumer_secret,
         access_token = access_token,
         access_token_secret = access_token_secret
-        )
+     )
 
-    # this is where the fun actually starts :)
+     #This is where the fun actually starts :)
     for tweet in ts.search_tweets_iterable(tso):
 
         username = "@" + tweet['user']['screen_name']
-        # print(username)
+        print(username)
 
-        counter = 0
+        #Checking for duplicates
+        duplicates = 0
+        for user in users:
+            if user == username:
+                duplicates += 1
 
-        # with open(file_results) as file:
-        #     for line in file:
-        #         if line is username:
-        #             counter += 1
-        #             print("IT EXISTS")
+        #If no duplicates, append
+        if duplicates == 0:
+            users.append(username)
 
-        for usern in username_list:
-            if usern is username:
-                counter += 1
-                print("IT EXISTS")
+    #Writing user names to the text file
+    for user in users:
+        f.write("%s\n" % user)
 
-        if counter == 0:
-            username_list.append(username)
-            # f.write(str(username_list))
-
-
-
-
-except TwitterSearchException as e: # take care of all those ugly errors if there are some
+#(Takes care of all those ugly errors if there are some)
+#No! It's catching only TwitterSearchException, other errors won't be handled
+except TwitterSearchException as e:
     print(e)
-
-
-print(username_list)
