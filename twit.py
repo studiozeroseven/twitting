@@ -7,9 +7,13 @@ from keys import *
 search = "teppen"
 
 file_results = 'txt/' + search + '-results.txt'
-f = open(file_results, 'w')
 
+# f = open(file_results, 'r')
+# users = [line.split(',') for line in f]
+# f.close()
+# print(users)
 users = []
+f = open(file_results, 'w')
 
 try:
     tso = TwitterSearchOrder() # create a TwitterSearchOrder object
@@ -50,6 +54,8 @@ try:
         #If no duplicates, append
         if duplicates == 0:
             users.append(username)
+
+        print(users)
 
     #Writing user names to the text file
     for user in users:
