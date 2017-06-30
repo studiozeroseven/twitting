@@ -1,18 +1,19 @@
-import os
+import os.path
 from TwitterSearch import *
 from keys import *
 
 # print('What do you want to search for?')
 #TODO: Change this back to what it was, I forgot how to do it
-search = "teppen"
+search = "pokemon"
 
 file_results = 'txt/' + search + '-results.txt'
-
-# f = open(file_results, 'r')
-# users = [line.split(',') for line in f]
-# f.close()
-# print(users)
-users = []
+if os.path.isfile(file_results):
+    f = open(file_results, 'r')
+    users = [line.strip() for line in f]
+    f.close()
+    print(users)
+else:
+    users = []
 f = open(file_results, 'w')
 
 try:
@@ -43,7 +44,7 @@ try:
     for tweet in ts.search_tweets_iterable(tso):
 
         username = "@" + tweet['user']['screen_name']
-        print(username)
+        # print(username)
 
         #Checking for duplicates
         duplicates = 0
@@ -55,13 +56,13 @@ try:
         if duplicates == 0:
             users.append(username)
 
-        print(users)
+        # print(users)
 
     #Writing user names to the text file
     for user in users:
         f.write("%s\n" % user)
 
-#(Takes care of all those ugly errors if there are some)
-#No! It's catching only TwitterSearchException, other errors won't be handled
+# (Takes care of all those ugly errors if there are some)
+# No! It's catching only TwitterSearchException, other errors won't be handled
 except TwitterSearchException as e:
     print(e)
