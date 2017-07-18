@@ -1,4 +1,4 @@
-import os.path
+from pymongo import MongoClient
 from TwitterSearch import *
 from keys import *
 
@@ -7,14 +7,10 @@ from keys import *
 search = "pokemon"
 
 file_results = 'txt/' + search + '-results.txt'
-if os.path.isfile(file_results):
-    f = open(file_results, 'r')
-    users = [line.strip() for line in f]
-    f.close()
-    print(users)
-else:
-    users = []
-f = open(file_results, 'w')
+
+client = MongoClient("localhost", 27017)
+db2 = client.twits
+posts = db2.posts['name']
 
 try:
     tso = TwitterSearchOrder() # create a TwitterSearchOrder object
@@ -46,21 +42,25 @@ try:
         username = "@" + tweet['user']['screen_name']
         # print(username)
 
+
         #Checking for duplicates
         duplicates = 0
-        for user in users:
-            if user == username:
+        for document in posts.find({}):
+            thename = document['name']
+            if document['name'] == username:
                 duplicates += 1
+                print('dup')
 
         #If no duplicates, append
         if duplicates == 0:
-            users.append(username)
+            post_data = {
+                'name': username
+            }
+            result = posts.insert_one(post_data)
+            print('Added!')
 
         # print(users)
 
-    #Writing user names to the text file
-    for user in users:
-        f.write("%s\n" % user)
 
 # (Takes care of all those ugly errors if there are some)
 # No! It's catching only TwitterSearchException, other errors won't be handled
