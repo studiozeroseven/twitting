@@ -16,7 +16,6 @@ You need a local setup of Mongo. See https://www.mongodb.com/ for installation
 
 I think thats about it.
 
-
 ### Running Script
 Just clone the files
 Make the keys.py in the root dir
