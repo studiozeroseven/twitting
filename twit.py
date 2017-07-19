@@ -10,7 +10,7 @@ file_results = 'txt/' + search + '-results.txt'
 
 client = MongoClient("localhost", 27017)
 db2 = client.twits
-posts = db2.posts['name']
+posts = db2.posts
 
 try:
     tso = TwitterSearchOrder() # create a TwitterSearchOrder object
