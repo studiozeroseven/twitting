@@ -42,8 +42,7 @@ try:
         username = "@" + tweet['user']['screen_name']
         # print(username)
 
-
-        #Checking for duplicates
+        #Checking the database for duplicates
         duplicates = 0
         for document in posts.find({}):
             thename = document['name']
@@ -51,16 +50,15 @@ try:
                 duplicates += 1
                 print('dup')
 
-        #If no duplicates, append
+        #If no duplicates, add to the database
         if duplicates == 0:
             post_data = {
                 'name': username
             }
             result = posts.insert_one(post_data)
-            print('Added!')
+            print('Added! | ' + username )
 
         # print(users)
-
 
 # (Takes care of all those ugly errors if there are some)
 # No! It's catching only TwitterSearchException, other errors won't be handled
